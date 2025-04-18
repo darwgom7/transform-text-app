@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*/
+@use 'theme/custom-theme';
+
+html, body { height: 100%; }
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 64px auto;
+    background-color: #ffffffee; /* leve transparencia */
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px); /* efecto glassmorphism 😎 */
+  }
+  
+  .cdk-overlay-pane .mat-mdc-select-panel {
+    background: #c6e1df !important;
+    color: #1b6e66;
+  }
+  
+  .mat-mdc-option.mdc-list-item--selected {
+    background-color: #1b6e66 !important;
+    color: white !important;
+  }
+
+  .mat-mdc-option .mdc-list-item__primary-text {
+    color: #1b6e66 !important;
+  }
+
+  .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+    color: whitesmoke !important;
+  }
+  
+  .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+    color: whitesmoke !important;
+  }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    color: #1b6e66 !important;
+  }

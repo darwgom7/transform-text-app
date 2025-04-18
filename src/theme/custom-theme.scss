@@ -1,0 +1,25 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+// Define tus paletas personalizadas
+$custom-primary: map.merge(mat.$m2-blue-palette, (500: #0093e9));
+$custom-accent: map.merge(mat.$m2-teal-palette, (500: #80d0c7));
+
+// Crea las paletas utilizando las nuevas funciones
+$primary-palette: mat.m2-define-palette($custom-primary);
+$accent-palette: mat.m2-define-palette($custom-accent);
+$warn-palette: mat.m2-define-palette(mat.$m2-red-palette);
+
+// Crea el tema personalizado
+$custom-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette,
+  ),
+  typography: mat.m2-define-typography-config(),
+  density: 0,
+));
+
+// Aplica el tema a todos los componentes
+@include mat.all-component-themes($custom-theme);

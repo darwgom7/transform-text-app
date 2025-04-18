@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/transform-text-app",
+            "outputPath": "dist/store",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [

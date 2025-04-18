@@ -38,7 +38,7 @@
   </div>
 
   <mat-checkbox [(ngModel)]="removeDuplicates" (change)="transformText()">
-    Remove duplicates
+    Remove duplicates <span *ngIf="!removeDuplicates && duplicateCount > 0" class="duplicate-count">({{ duplicateCount }})</span>
   </mat-checkbox>
 
   <mat-card class="output">

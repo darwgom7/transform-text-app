@@ -36,6 +36,7 @@ export class TextTransformerComponent {
   removeDuplicates: boolean = false;
   transformedText: string = '';
   resultCount: number = 0;
+  duplicateCount: number = 0;
 
   private readonly STORAGE_KEY = 'text-transformer-state';
 
@@ -49,7 +50,8 @@ export class TextTransformerComponent {
       sortOrder: this.sortOrder,
       textFormat: this.textFormat,
       removeDuplicates: this.removeDuplicates,
-      transformedText: this.transformedText
+      transformedText: this.transformedText,
+      duplicateCount: this.duplicateCount
     };
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(state));
   }
@@ -67,6 +69,7 @@ export class TextTransformerComponent {
         this.resultCount = this.transformedText
           ? this.transformedText.split('\n').filter(line => line.trim()).length
           : 0;
+        this.duplicateCount = state.duplicateCount || 0;
       } catch (error) {
         console.error('Error parsing state from localStorage:', error);
       }
@@ -80,6 +83,7 @@ export class TextTransformerComponent {
     this.removeDuplicates = false;
     this.transformedText = '';
     this.resultCount = 0;
+    this.duplicateCount = 0;
     localStorage.removeItem(this.STORAGE_KEY);
   }
 
@@ -87,6 +91,7 @@ export class TextTransformerComponent {
     if (!this.inputText) {
       this.transformedText = '';
       this.resultCount = 0;
+      this.duplicateCount = 0;
       this.saveState();
       return;
     }
@@ -111,26 +116,34 @@ export class TextTransformerComponent {
       }
     });
 
-    // 3. Remove duplicates after formatting
+    // 3. Calculate how many different words are duplicated
+    const freq: Record<string, number> = {};
+    lines.forEach(line => {
+      freq[line] = (freq[line] || 0) + 1;
+    });
+    this.duplicateCount = Object.values(freq).filter(count => count > 1).length;
+
+    // 4. Remove duplicates after formatting
     if (this.removeDuplicates) {
       lines = Array.from(new Set(lines));
     }
 
-    // 4. Sort if necessary
+    // 5. Sort if necessary
     if (this.sortOrder === 'asc') {
       lines.sort((a, b) => a.localeCompare(b));
     } else if (this.sortOrder === 'desc') {
       lines.sort((a, b) => b.localeCompare(a));
     }
 
-    // 5. Assign result
+    // 6. Assign result
     this.transformedText = lines.join('\n');
     this.resultCount = lines.length;
     this.saveState();
   }
 
-  // 6. Copy the transformed text to the clipboard
+  // 7. Copy the transformed text to the clipboard
   copyToClipboard(): void {
     this.clipboard.copy(this.transformedText);
   }
+  
 }

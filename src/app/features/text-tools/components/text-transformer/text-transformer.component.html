@@ -43,7 +43,7 @@
 
   <mat-card class="output">
     <div class="output-header">
-      <h3>Result</h3>
+      <h3>Result <span *ngIf="resultCount > 0" class="result-count">({{ resultCount }})</span></h3>
       <button mat-icon-button (click)="copyToClipboard()" aria-label="Copy result">
         <mat-icon>content_copy</mat-icon>
       </button>

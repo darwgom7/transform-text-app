@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -14,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-text-transformer',
   imports: [
+    CommonModule,
     FormsModule,
     ClipboardModule,
     MatCardModule,
@@ -33,6 +35,7 @@ export class TextTransformerComponent {
   textFormat: 'none' | 'uppercase' | 'lowercase' | 'capitalize' = 'none';
   removeDuplicates: boolean = false;
   transformedText: string = '';
+  resultCount: number = 0;
 
   private readonly STORAGE_KEY = 'text-transformer-state';
 
@@ -61,6 +64,9 @@ export class TextTransformerComponent {
         this.textFormat = state.textFormat || 'none';
         this.removeDuplicates = state.removeDuplicates || false;
         this.transformedText = state.transformedText || '';
+        this.resultCount = this.transformedText
+          ? this.transformedText.split('\n').filter(line => line.trim()).length
+          : 0;
       } catch (error) {
         console.error('Error parsing state from localStorage:', error);
       }
@@ -73,12 +79,14 @@ export class TextTransformerComponent {
     this.textFormat = 'none';
     this.removeDuplicates = false;
     this.transformedText = '';
+    this.resultCount = 0;
     localStorage.removeItem(this.STORAGE_KEY);
   }
 
   transformText(): void {
     if (!this.inputText) {
       this.transformedText = '';
+      this.resultCount = 0;
       this.saveState();
       return;
     }
@@ -117,6 +125,7 @@ export class TextTransformerComponent {
 
     // 5. Assign result
     this.transformedText = lines.join('\n');
+    this.resultCount = lines.length;
     this.saveState();
   }
 

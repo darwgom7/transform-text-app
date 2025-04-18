@@ -1,50 +1,53 @@
 <mat-card class="container">
+  <div  class="input-header">
     <h2>Text Transformer</h2>
-  
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Enter your text</mat-label>
-      <textarea
-        matInput
-        [(ngModel)]="inputText"
-        rows="6"
-        (input)="transformText()"
-      ></textarea>
+    <button mat-icon-button (click)="clearAll()" aria-label="Clear input">
+      <mat-icon>cleaning_services</mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Enter your text</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="inputText"
+      rows="6"
+      (input)="transformText()"
+    ></textarea>
+  </mat-form-field>
+
+  <div class="options">
+    <mat-form-field appearance="fill" class="option-field">
+      <mat-label>Sort</mat-label>
+      <mat-select [(ngModel)]="sortOrder" (selectionChange)="transformText()">
+        <mat-option value="none">None</mat-option>
+        <mat-option value="asc">Ascending</mat-option>
+        <mat-option value="desc">Descending</mat-option>
+      </mat-select>
     </mat-form-field>
-  
-    <div class="options">
-      <mat-form-field appearance="fill" class="option-field">
-        <mat-label>Sort</mat-label>
-        <mat-select [(ngModel)]="sortOrder" (selectionChange)="transformText()">
-          <mat-option value="none">None</mat-option>
-          <mat-option value="asc">Ascending</mat-option>
-          <mat-option value="desc">Descending</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <mat-form-field appearance="fill" class="option-field">
-        <mat-label>Text format</mat-label>
-        <mat-select [(ngModel)]="textFormat" (selectionChange)="transformText()">
-          <mat-option value="none">None</mat-option>
-          <mat-option value="uppercase">UPPERCASE</mat-option>
-          <mat-option value="lowercase">lowercase</mat-option>
-          <mat-option value="capitalize">Capitalize</mat-option>
-        </mat-select>
-      </mat-form-field>
+
+    <mat-form-field appearance="fill" class="option-field">
+      <mat-label>Text format</mat-label>
+      <mat-select [(ngModel)]="textFormat" (selectionChange)="transformText()">
+        <mat-option value="none">None</mat-option>
+        <mat-option value="uppercase">UPPERCASE</mat-option>
+        <mat-option value="lowercase">lowercase</mat-option>
+        <mat-option value="capitalize">Capitalize</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox [(ngModel)]="removeDuplicates" (change)="transformText()">
+    Remove duplicates
+  </mat-checkbox>
+
+  <mat-card class="output">
+    <div class="output-header">
+      <h3>Result</h3>
+      <button mat-icon-button (click)="copyToClipboard()" aria-label="Copy result">
+        <mat-icon>content_copy</mat-icon>
+      </button>
     </div>
-  
-    <mat-checkbox [(ngModel)]="removeDuplicates" (change)="transformText()">
-      Remove duplicates
-    </mat-checkbox>
-  
-    <mat-card class="output">
-        <div class="output-header">
-          <h3>Result</h3>
-          <button mat-icon-button (click)="copyToClipboard()" aria-label="Copy result">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-        </div>
-        <pre>{{ transformedText }}</pre>
-      </mat-card>
-      
+    <pre>{{ transformedText }}</pre>
   </mat-card>
-  
+</mat-card>

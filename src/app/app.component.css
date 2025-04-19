@@ -3,4 +3,64 @@ footer {
   margin-top: 20px;
   font-size: 0.9em;
   color: whitesmoke;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 100;
+  background: transparent;
+  padding-bottom: 8px;
+}
+
+.toolbar-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  margin-right: 24px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.active-link {
+  font-weight: bold;
+  color: #fff !important;
+  background: #0093e9 !important;
+  border-radius: 6px;
+}
+mat-toolbar {
+  margin-bottom: 18px;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 100;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+  display: flex;
+  justify-content: center;
+}
+mat-toolbar button[mat-button] {
+  margin: 0 6px;
+  font-size: 0.98em;
+  font-weight: 500;
+  color: #fff;
+  background: transparent;
+  border-radius: 6px;
+  border: none;
+  box-shadow: none;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 4px 12px;
+}
+mat-toolbar button[mat-button]:hover {
+  background: #388be0;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+body, html {
+  padding-top: 80px;
+  padding-bottom: 60px;
 }

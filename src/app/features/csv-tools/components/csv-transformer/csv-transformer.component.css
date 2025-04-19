@@ -1,0 +1,140 @@
+:host ::ng-deep .container {
+    max-width: 1000px !important;
+    width: 98vw !important;
+    min-width: 0;
+    margin: 90px auto 0 auto !important;
+    background-color: #0794e506;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+    display: block;
+}
+
+:host ::ng-deep mat-card.container {
+    max-width: 1000px !important;
+    width: 98vw !important;
+    min-width: 0;
+    margin: 90px auto 0 auto !important;
+    display: block;
+}
+
+:host ::ng-deep .full-width,
+:host ::ng-deep mat-form-field.full-width {
+  width: 100%;
+  min-width: 0;
+}
+
+:host ::ng-deep textarea[matInput] {
+  width: 100%;
+  min-width: 0;
+  font-size: 1.08em;
+  resize: vertical;
+}
+
+:host ::ng-deep .csv-cell-field {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+:host ::ng-deep .csv-cell-field input[matInput] {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 1em;
+}
+
+:host ::ng-deep .csv-cell-field,
+:host ::ng-deep .csv-cell-field textarea[matInput],
+:host ::ng-deep .csv-cell-field input[matInput] {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  font-size: 1em;
+}
+
+:host ::ng-deep .csv-d-field {
+  width: 40vw !important;
+  min-width: 320px !important;
+  max-width: 700px !important;
+}
+
+:host ::ng-deep .csv-d-field textarea[matInput] {
+  min-height: 48px;
+  font-size: 0.98em;
+  resize: vertical;
+  width: 100%;
+}
+
+:host ::ng-deep .wide-cell {
+  min-width: 120px !important;
+  max-width: 180px !important;
+  width: 180px !important;
+  display: block !important;
+}
+
+:host ::ng-deep .wide-cell input {
+  min-width: 300px;
+  max-width: 460px;
+}
+
+:host ::ng-deep .wide-cell textarea[matInput] {
+  min-width: 100px !important;
+  max-width: 160px !important;
+  width: 100% !important;
+  font-size: 0.82em !important;
+  line-height: 1.1 !important;
+  padding: 2px 6px !important;
+  display: block !important;
+}
+
+:host ::ng-deep .mat-column-D {
+  width: 40vw !important;
+  min-width: 320px !important;
+  max-width: 700px !important;
+}
+
+@media (max-width: 600px) {
+  :host ::ng-deep .mat-table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+  :host ::ng-deep .mat-header-row,
+  :host ::ng-deep .mat-row {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  :host ::ng-deep .mat-cell,
+  :host ::ng-deep .mat-header-cell {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 0;
+    border-bottom: none;
+  }
+  :host ::ng-deep .mat-header-cell {
+    font-weight: bold;
+    color: #0093e9;
+    min-width: 80px;
+    max-width: 120px;
+    flex: 0 0 100px;
+  }
+  :host ::ng-deep .mat-cell > * {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+  }
+  :host ::ng-deep .csv-cell-field,
+  :host ::ng-deep .csv-d-field {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}

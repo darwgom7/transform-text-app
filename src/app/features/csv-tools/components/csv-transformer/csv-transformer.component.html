@@ -1,0 +1,17 @@
+<mat-card class="container">
+  <h2 style="color: whitesmoke;">CSV Transformer</h2>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Pega aquí tu CSV</mat-label>
+    <textarea matInput [(ngModel)]="csvText" rows="14" placeholder="W,M,D\nstrive,esforzarse,She strives to be the best...\n..."></textarea>
+  </mat-form-field>
+  <div class="csv-actions">
+    <button mat-raised-button color="primary" (click)="openTableModal()">
+      <mat-icon style="color: whitesmoke;">visibility</mat-icon>
+      Vista previa
+    </button>
+    <button mat-raised-button color="accent" class="download-btn" (click)="downloadCsv()">
+      <mat-icon style="color: whitesmoke;">download</mat-icon>
+      Descargar
+    </button>
+  </div>
+</mat-card>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
@@ -10,4 +10,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 })
 export class AppComponent {
   title = 'Transform Text App';
+
+  constructor(public router: Router) {}
+
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
+  }
 }

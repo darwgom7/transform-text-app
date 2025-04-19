@@ -1,2 +1,8 @@
+<mat-toolbar color="primary">
+  <span class="toolbar-title">Text Tools</span>
+  <span class="spacer"></span>
+  <button mat-button [class.active-link]="router.url.startsWith('/text-transformer')" (click)="navigateTo('/text-transformer')">Text Transformer</button>
+  <button mat-button [class.active-link]="router.url.startsWith('/csv-transformer')" (click)="navigateTo('/csv-transformer')">CSV Transformer</button>
+</mat-toolbar>
 <router-outlet></router-outlet>
 <footer>Powered by darwgom!</footer>

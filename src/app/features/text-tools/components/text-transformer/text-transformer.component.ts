@@ -38,6 +38,9 @@ export class TextTransformerComponent {
   resultCount: number = 0;
   duplicateCount: number = 0;
 
+  selectedRangeStart: number | null = null;
+  selectedRangeEnd: number | null = null;
+
   private readonly STORAGE_KEY = 'text-transformer-state';
 
   constructor(private clipboard: Clipboard) {
@@ -87,8 +90,10 @@ export class TextTransformerComponent {
     localStorage.removeItem(this.STORAGE_KEY);
   }
 
-  transformText(): void {
-    if (!this.inputText) {
+  // Change transformText to accept an optional base text
+  transformText(baseText?: string): void {
+    const sourceText = baseText !== undefined ? baseText : this.transformedText || this.inputText;
+    if (!sourceText) {
       this.transformedText = '';
       this.resultCount = 0;
       this.duplicateCount = 0;
@@ -97,7 +102,7 @@ export class TextTransformerComponent {
     }
 
     // 1. Get clean lines
-    let lines = this.inputText
+    let lines = sourceText
       .split('\n')
       .map(line => line.trim())
       .filter(line => line);
@@ -141,9 +146,88 @@ export class TextTransformerComponent {
     this.saveState();
   }
 
-  // 7. Copy the transformed text to the clipboard
+  // Change filter handlers to work on the current result
+  onSortChange(): void {
+    this.transformText(this.transformedText);
+  }
+  onTextFormatChange(): void {
+    this.transformText(this.transformedText);
+  }
+  onRemoveDuplicatesChange(): void {
+    this.transformText(this.transformedText);
+  }
+
+  restoreResult(): void {
+    this.transformText(this.inputText);
+  }
+
+  // Copy the transformed text to the clipboard
   copyToClipboard(): void {
     this.clipboard.copy(this.transformedText);
   }
-  
+
+  // Handles double click to copy and remove a word
+  onLineDoubleClick(index: number): void {
+    const lines = this.filteredLines.slice();
+    const value = lines[index];
+    this.clipboard.copy(value);
+    lines.splice(index, 1);
+    this.transformedText = lines.join('\n');
+    this.resultCount = lines.length;
+    this.saveState(); // Save the updated state without reprocessing inputText
+  }
+
+  // Handles single click to select a range
+  onLineClick(index: number): void {
+    if (this.selectedRangeStart === null) {
+      this.selectedRangeStart = index;
+      this.selectedRangeEnd = null;
+    } else if (this.selectedRangeEnd === null) {
+      this.selectedRangeEnd = index;
+      // Copy and remove the selected range
+      this.copyAndRemoveRange();
+    } else {
+      // Reset selection if a range is already selected
+      this.selectedRangeStart = index;
+      this.selectedRangeEnd = null;
+    }
+  }
+
+  copyAndRemoveRange(): void {
+    if (this.selectedRangeStart === null || this.selectedRangeEnd === null) return;
+    const start = Math.min(this.selectedRangeStart, this.selectedRangeEnd);
+    const end = Math.max(this.selectedRangeStart, this.selectedRangeEnd);
+    const lines = this.filteredLines.slice();
+    const selected = lines.slice(start, end + 1);
+    this.clipboard.copy(selected.join('\n'));
+    lines.splice(start, end - start + 1);
+    this.transformedText = lines.join('\n');
+    this.resultCount = lines.length;
+    this.selectedRangeStart = null;
+    this.selectedRangeEnd = null;
+    this.saveState();
+  }
+
+  isLineSelected(index: number): boolean {
+    if (this.selectedRangeStart === null) return false;
+    if (this.selectedRangeEnd === null) return index === this.selectedRangeStart;
+    const start = Math.min(this.selectedRangeStart, this.selectedRangeEnd);
+    const end = Math.max(this.selectedRangeStart, this.selectedRangeEnd);
+    return index >= start && index <= end;
+  }
+
+  get filteredLines(): string[] {
+    return this.transformedText
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line);
+  }
+
+  // In the textarea, on input, always process from inputText
+  onInputTextChange(): void {
+    // Reset selection and dynamic result
+    this.selectedRangeStart = null;
+    this.selectedRangeEnd = null;
+    this.transformText(this.inputText);
+  }
 }

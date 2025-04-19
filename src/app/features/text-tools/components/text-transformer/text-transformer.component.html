@@ -1,9 +1,14 @@
 <mat-card class="container">
   <div  class="input-header">
     <h2>Text Transformer</h2>
-    <button mat-icon-button (click)="clearAll()" aria-label="Clear input">
-      <mat-icon>cleaning_services</mat-icon>
-    </button>
+    <div class="input-actions">
+      <button mat-icon-button (click)="restoreResult()" aria-label="Restore result">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button mat-icon-button (click)="clearAll()" aria-label="Clear input">
+        <mat-icon>cleaning_services</mat-icon>
+      </button>
+    </div>
   </div>
 
   <mat-form-field appearance="fill" class="full-width">
@@ -12,14 +17,14 @@
       matInput
       [(ngModel)]="inputText"
       rows="6"
-      (input)="transformText()"
+      (input)="onInputTextChange()"
     ></textarea>
   </mat-form-field>
 
   <div class="options">
     <mat-form-field appearance="fill" class="option-field">
       <mat-label>Sort</mat-label>
-      <mat-select [(ngModel)]="sortOrder" (selectionChange)="transformText()">
+      <mat-select [(ngModel)]="sortOrder" (selectionChange)="onSortChange()">
         <mat-option value="none">None</mat-option>
         <mat-option value="asc">Ascending</mat-option>
         <mat-option value="desc">Descending</mat-option>
@@ -28,7 +33,7 @@
 
     <mat-form-field appearance="fill" class="option-field">
       <mat-label>Text format</mat-label>
-      <mat-select [(ngModel)]="textFormat" (selectionChange)="transformText()">
+      <mat-select [(ngModel)]="textFormat" (selectionChange)="onTextFormatChange()">
         <mat-option value="none">None</mat-option>
         <mat-option value="uppercase">UPPERCASE</mat-option>
         <mat-option value="lowercase">lowercase</mat-option>
@@ -37,7 +42,7 @@
     </mat-form-field>
   </div>
 
-  <mat-checkbox [(ngModel)]="removeDuplicates" (change)="transformText()">
+  <mat-checkbox [(ngModel)]="removeDuplicates" (change)="onRemoveDuplicatesChange()">
     Remove duplicates <span *ngIf="!removeDuplicates && duplicateCount > 0" class="duplicate-count">({{ duplicateCount }})</span>
   </mat-checkbox>
 
@@ -49,9 +54,14 @@
       </button>
     </div>
     <div class="output-list">
-      <ng-container *ngFor="let line of transformedText.split('\n'); let i = index">
-        <div class="output-line" *ngIf="line.trim()">
-          <span class="line-number">{{ i + 1 }}.</span>
+      <ng-container *ngFor="let line of filteredLines; let i = index">
+        <div class="output-line">
+          <button class="line-number-btn" 
+                  (click)="onLineClick(i)" 
+                  (dblclick)="onLineDoubleClick(i)"
+                  [class.selected]="isLineSelected(i)">
+            {{ i + 1 }}
+          </button>
           <span class="line-content">{{ line }}</span>
         </div>
       </ng-container>

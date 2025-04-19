@@ -77,6 +77,38 @@ pre {
   border: 1px solid #c4f0eb;
 }
 
+.output-list {
+  white-space: pre-wrap;
+  background-color: #c6e1df;
+  color: #146a61;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  min-height: 48px;
+  font-weight: 500;
+  margin: 0;
+  border: 1px solid #c4f0eb;
+}
+
+.output-line {
+  display: flex;
+  align-items: flex-start;
+  font-size: 15px;
+  padding: 1px 0;
+}
+
+.line-number {
+  min-width: 2em;
+  color: #0093e9;
+  font-weight: bold;
+  user-select: none;
+}
+
+.line-content {
+  flex: 1;
+  color: #146a61;
+  word-break: break-word;
+}
 
 .mat-mdc-checkbox .mdc-checkbox__background {
   border-color: #0093e9 !important;
@@ -130,7 +162,6 @@ textarea.mat-input-element,
 .output {
   background-color: #8ef2e61f;
 }
-
 
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: #c6e1df;

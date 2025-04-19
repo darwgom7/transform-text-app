@@ -48,6 +48,13 @@
         <mat-icon>content_copy</mat-icon>
       </button>
     </div>
-    <pre>{{ transformedText }}</pre>
+    <div class="output-list">
+      <ng-container *ngFor="let line of transformedText.split('\n'); let i = index">
+        <div class="output-line" *ngIf="line.trim()">
+          <span class="line-number">{{ i + 1 }}.</span>
+          <span class="line-content">{{ line }}</span>
+        </div>
+      </ng-container>
+    </div>
   </mat-card>
 </mat-card>
